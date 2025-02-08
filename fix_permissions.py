@@ -18,9 +18,16 @@ def is_invalid_base_dir(base_dir):
     base_dir = os.path.abspath(base_dir)
     home_dir = os.path.expanduser("~")
     system_dirs = ["/bin", "/usr", "/lib", "/sbin", "/etc", "/boot", "/opt", "/var"]
-    if base_dir == home_dir or base_dir in system_dirs:
-        return True
-    return any(os.path.commonpath([base_dir, sys_dir]) == sys_dir for sys_dir in system_dirs)
+
+    # Allow subdirectories of $HOME
+    if os.path.samefile(base_dir, home_dir):
+        return True  # Prevent running on $HOME directly
+
+    if any(os.path.samefile(os.path.commonpath([base_dir, sys_dir]), sys_dir) for sys_dir in system_dirs):
+        return True  # Prevent running on system directories
+
+    return False  # Otherwise, it's valid
+
 
 def fix_permissions(base_dir, dry_run):
     # Fix base directory permissions first
