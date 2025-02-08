@@ -18,7 +18,7 @@ LOG_FILE="$HOME/.local/logs/rclone_backup.log"
 # Create log directory if not exists
 mkdir -p "$(dirname "$LOG_FILE")"
 
-# Run rclone sync for Google Drive and Dropbox, appending output to log
+# Run rclone sync for Dropbox, appending output to log
 {
     echo "==== Backup started at $(date) ===="
 
