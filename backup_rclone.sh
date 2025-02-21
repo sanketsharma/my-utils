@@ -11,6 +11,7 @@ flock -n 200 || { echo "Backup already running"; exit 1; }
 # Define source and destination paths
 SRC_DIR="$HOME/git/deuteron"
 DEST_DROPBOX="dropbox:backup/deuteron"
+DEST_ONEDRIVE="onedrive-utk:backup/deuteron"
 
 # Log file
 LOG_FILE="$HOME/.local/logs/rclone_backup.log"
@@ -25,6 +26,10 @@ mkdir -p "$(dirname "$LOG_FILE")"
     # Sync data and logs to Dropbox
     rclone sync "$SRC_DIR/data" "$DEST_DROPBOX/data" --progress --log-file="$LOG_FILE" --log-level INFO
     rclone sync "$SRC_DIR/logs" "$DEST_DROPBOX/logs" --progress --log-file="$LOG_FILE" --log-level INFO
+
+    # Sync data and logs to OneDrive UTK 
+    rclone sync "$SRC_DIR/data" "$DEST_ONEDRIVE/data" --progress --log-file="$LOG_FILE" --log-level INFO
+    rclone sync "$SRC_DIR/logs" "$DEST_ONEDRIVE/logs" --progress --log-file="$LOG_FILE" --log-level INFO
 
     echo "==== Backup completed at $(date) ===="
 } >> "$LOG_FILE" 2>&1
