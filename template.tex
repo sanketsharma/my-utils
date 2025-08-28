@@ -1,0 +1,27 @@
+% Preamble for Pandoc Markdown to PDF conversion with Xelatex and Unicode Math
+\documentclass[12pt]{article}
+\usepackage{amsmath} % For improved math environments
+\usepackage{amssymb} % For common math symbols
+\usepackage{amsfonts} % For math fonts
+\usepackage{bm} % For bold math symbols
+\usepackage{geometry} % For page margins
+\geometry{a4paper, margin=1in} % Example margins
+
+% Crucial for Unicode math with xelatex
+\usepackage{fontspec} % For OpenType fonts
+\usepackage{unicode-math} % For unicode math fonts
+
+% Set the math font explicitly to STIX Two Math
+\setmathfont{STIX Two Math} 
+%\setmainfont{Latin Modern Roman} % You might need to set the main text font explicitly too if there are font warnings
+
+% Pandoc's standard header inclusions (ensure compatibility)
+% This line sometimes causes issues if Pandoc tries to re-add things already here
+% You might try commenting it out if you get errors related to duplicated packages.
+\usepackage{header-includes} 
+
+\begin{document}
+
+$body$ % This is where Pandoc inserts your Markdown content
+
+\end{document}
